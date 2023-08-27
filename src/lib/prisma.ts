@@ -1,15 +1,17 @@
 import { PrismaClient } from '@prisma/client'
-import { faker } from '@faker-js/faker'
-
-const prisma = new PrismaClient()
+import { fakeBookData } from './books-data'
+export const prisma = new PrismaClient()
 
 async function main() {
-  const bookEntry = await prisma.bookSugestion.create({
-    data: {
-      bookAuthor: `Doe`,
-      bookTitle: `Doe's ways`,
-      bookGenre: `fiction`,
-    },
+  let bookEntry
+  fakeBookData.forEach(async (data) => {
+    bookEntry = await prisma.bookSugestion.create({
+      data: {
+        bookAuthor: data.author,
+        bookTitle: data.title,
+        bookGenre: data.genre,
+      },
+    })
   })
   console.log(bookEntry)
 }
