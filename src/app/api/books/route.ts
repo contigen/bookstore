@@ -6,8 +6,13 @@ type BookData = {
   genre: string
   author: string
 }
-export function GET(req: Request) {
-  return new Response(`OK`)
+export async function GET(req: Request) {
+  try {
+    const bookData = await prisma.bookSugestion.findMany()
+    return NextResponse.json(bookData)
+  } catch {
+    return NextResponse.json({ error: 'Error fetching books' }, { status: 500 })
+  }
 }
 
 export async function POST(req: Request) {
@@ -22,7 +27,7 @@ export async function POST(req: Request) {
       },
     })
     return NextResponse.json(bookEntry)
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 },
