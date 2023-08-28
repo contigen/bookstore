@@ -50,3 +50,4 @@ export const fakeBookData = [
     genre: 'Historical Fantasy',
   },
 ]
+export type BookData = (typeof fakeBookData)[number]
