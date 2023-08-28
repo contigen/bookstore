@@ -1,27 +1,11 @@
 import { PrismaClient } from '@prisma/client'
-import { fakeBookData } from './books-data'
-export const prisma = new PrismaClient()
 
-async function main() {
-  let bookEntry
-  fakeBookData.forEach(async (data) => {
-    bookEntry = await prisma.bookSugestion.create({
-      data: {
-        bookAuthor: data.author,
-        bookTitle: data.title,
-        bookGenre: data.genre,
-      },
-    })
-  })
-  console.log(bookEntry)
-}
+const globalForPrisma = global as unknown as { prisma: PrismaClient }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
+export const prisma =
+  globalForPrisma.prisma ||
+  new PrismaClient({
+    log: [`query`],
   })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+
+if (process.env.NODE_ENV != 'production') globalForPrisma.prisma = prisma
