@@ -1,12 +1,12 @@
 import { Fragment, Suspense, cache } from 'react'
-import { FormHeader } from './form'
+import { FormWrapper } from './form'
 import { prisma } from '@/lib/prisma'
-import { BookData } from '@/lib/books-data'
+import type { BookData } from '@/lib/books-data'
 
 export default function Home() {
   return (
     <main>
-      <FormHeader />
+      <FormWrapper />
       <Suspense fallback={<h2>Loading...</h2>}>
         <BooksList />
       </Suspense>
@@ -27,7 +27,7 @@ async function BooksList() {
     )
   }
   return (
-    <div>
+    <div className='mb-8'>
       {bookData.map(
         (
           data: {
