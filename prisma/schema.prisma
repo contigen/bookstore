@@ -10,7 +10,7 @@ datasource db {
 
 model BookSugestion {
   id Int @id @default(autoincrement()) 
-  bookTitle String
-  bookGenre String
-  bookAuthor String
+  title String
+  genre String
+  author String
 }
