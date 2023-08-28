@@ -1,4 +1,4 @@
-import { Fragment, Suspense } from 'react'
+import { Fragment, Suspense, cache } from 'react'
 import { FormHeader } from './form'
 import { prisma } from '@/lib/prisma'
 import { BookData } from '@/lib/books-data'
@@ -16,8 +16,9 @@ export default function Home() {
 
 async function BooksList() {
   let bookData
+  const getBooks = cache(async () => await prisma.bookSugestion.findMany())
   try {
-    bookData = await prisma.bookSugestion.findMany()
+    bookData = await getBooks()
   } catch {
     return (
       <h2 className='text-center mb-4'>
