@@ -4,12 +4,12 @@ export const prisma = new PrismaClient()
 
 async function main() {
   let bookEntry
-  fakeBookData.forEach(async (data) => {
+  fakeBookData.forEach(async ({ author, title, genre }) => {
     bookEntry = await prisma.bookSugestion.create({
       data: {
-        author: data.author,
-        title: data.title,
-        genre: data.genre,
+        author,
+        title,
+        genre,
       },
     })
     console.log(bookEntry)

@@ -1,11 +1,7 @@
+import type { BookData } from '@/lib/books-data'
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
-type BookData = {
-  title: string
-  genre: string
-  author: string
-}
 export async function GET(req: Request) {
   try {
     const bookData = await prisma.bookSugestion.findMany()
@@ -21,9 +17,9 @@ export async function POST(req: Request) {
   try {
     const bookEntry = await prisma.bookSugestion.create({
       data: {
-        bookTitle: title,
-        bookGenre: genre,
-        bookAuthor: author,
+        title,
+        genre,
+        author,
       },
     })
     return NextResponse.json(bookEntry)
