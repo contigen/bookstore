@@ -1,4 +1,4 @@
-import { Fragment, Suspense, cache } from 'react'
+import { Fragment, cache } from 'react'
 import { FormWrapper } from './form'
 import { prisma } from '@/lib/prisma'
 import type { BookData } from '@/lib/books-data'
@@ -7,9 +7,7 @@ export default function Home() {
   return (
     <main>
       <FormWrapper />
-      <Suspense fallback={<h2>Loading...</h2>}>
-        <BooksList />
-      </Suspense>
+      <BooksList />
     </main>
   )
 }
