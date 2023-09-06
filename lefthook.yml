@@ -21,7 +21,6 @@ pre-commit:
     prettier-check:
       glob: '*.{js,ts,jsx,tsx}'
       run: yarn prettier-check {staged_files}
-    prettier-format
+    prettier-format:
       glob: '*.{js,ts,jsx,tsx}'
       run: yarn prettier-format {staged_files}
-    
